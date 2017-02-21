@@ -10,4 +10,5 @@
 
 @interface JDTableView : UITableView
 @property(nonatomic,strong)UIImage *headImage;
+@property(nonatomic,assign)CGFloat height;
 @end

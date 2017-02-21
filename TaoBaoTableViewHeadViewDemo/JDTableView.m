@@ -9,6 +9,7 @@
 #import "JDTableView.h"
 
 @interface JDTableView ()<UIScrollViewDelegate>
+
 @property(nonatomic,strong)UIImageView *imageView;
 @end
 @implementation JDTableView
@@ -17,11 +18,11 @@
     self = [super initWithFrame:frame style:style];
     if (self) {
         
-        self.contentInset = UIEdgeInsetsMake(300, 0, 0, 0);
+        self.contentInset = UIEdgeInsetsMake(_height, 0, 0, 0);
         
         self.imageView = [UIImageView new];
         
-        self.imageView.frame = CGRectMake(0, - 300, self.frame.size.width, 300);
+        self.imageView.frame = CGRectMake(0, - _height, self.frame.size.width, _height);
         
         [self addSubview:self.imageView];
         //将 image 放在 tableview 的最后面
@@ -48,10 +49,9 @@
     }else{
         if (y + self.contentInset.top <= 0) { // 说明image完全显示
             
-            self.imageView.frame = CGRectMake(y + 300, y , self.frame.size.width - (y + 300) * 2, -y);
+            self.imageView.frame = CGRectMake(y + _height, y , self.frame.size.width - (y + _height) * 2, -y);
         }
     }
-
 }
 -(void)setHeadImage:(UIImage *)headImage{
     if (_headImage != headImage) {
@@ -60,6 +60,14 @@
     _imageView.image = _headImage;
 }
 
+-(void)setHeight:(CGFloat)height{
+    if (_height != height) {
+        _height = height;
+    }
+    self.contentInset = UIEdgeInsetsMake(_height, 0, 0, 0);
+    
+    self.imageView.frame = CGRectMake(0, - _height, self.frame.size.width, _height);
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
